@@ -1,0 +1,190 @@
+﻿<Page
+    x:Class="Cashbook.cashbookNew"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Cashbook"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <!--设置按钮样式-->
+    <Page.Resources>
+        <Style x:Key="ButtonStyle1" TargetType="Button">
+            <Setter Property="Background" Value="{ThemeResource ButtonBackground}" />
+            <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderBrush}" />
+            <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />
+            <Setter Property="Padding" Value="8,4,8,4" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+            <Setter Property="UseSystemFocusVisuals" Value="True" />
+            <Setter Property="FocusVisualMargin" Value="-3" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid" CornerRadius="20" Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"  
+                                                                        Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0"  
+                                                                    Value="{ThemeResource ButtonBackgroundPointerOver}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush"  
+                                                                        Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0"  
+                                                                    Value="{ThemeResource ButtonBorderBrushPointerOver}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"  
+                                                                        Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0"  
+                                                                    Value="{ThemeResource ButtonForegroundPointerOver}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"  
+                                                                        Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0"  
+                                                                    Value="{ThemeResource ButtonBackgroundPressed}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush"  
+                                                                        Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0"  
+                                                                    Value="{ThemeResource ButtonBorderBrushPressed}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"  
+                                                                        Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0"  
+                                                                    Value="{ThemeResource ButtonForegroundPressed}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"  
+                                                                        Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0"  
+                                                                    Value="{ThemeResource ButtonBackgroundDisabled}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush"  
+                                                                        Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0"  
+                                                                    Value="{ThemeResource ButtonBorderBrushDisabled}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"  
+                                                                        Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0"  
+                                                                    Value="{ThemeResource ButtonForegroundDisabled}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter" CornerRadius="20"  
+                                            AutomationProperties.AccessibilityView="Raw"  
+                                            BorderBrush="{TemplateBinding BorderBrush}"  
+                                            BorderThickness="{TemplateBinding BorderThickness}"  
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"  
+                                            ContentTransitions="{TemplateBinding ContentTransitions}"  
+                                            Content="{TemplateBinding Content}"  
+                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"  
+                                            Padding="{TemplateBinding Padding}"  
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="money" Grid.Row="0" Grid.Column="7" PlaceholderText="0" FontSize="40" Foreground="Red" HorizontalAlignment="Right" Margin="0,20,30,0" TextChanged="money_TextChanged" BorderThickness="0"/>
+
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="payout" Click="payout_Click" Grid.Column="0" Background="White" BorderThickness="0" HorizontalAlignment="Center">
+                <Image Source="Assets/payout.png" Width="40" Height="40" />
+            </Button>
+            <Button x:Name="income" Click="income_Click" Grid.Column="1" Background="White" BorderThickness="0" HorizontalAlignment="Center">
+                <Image Source="Assets/income.png" Width="40" Height="40" />
+            </Button>
+            <Button x:Name="traffic" Click="traffic_Click" Grid.Column="2" Background="White" BorderThickness="0" HorizontalAlignment="Center">
+                <Image Source="Assets/traffic.png" Width="40" Height="40" />
+            </Button>
+            <Button x:Name="catering" Click="catering_Click" Grid.Column="3" Background="White" BorderThickness="0" HorizontalAlignment="Center">
+                <Image Source="Assets/catering.png" Width="40" Height="40" />
+            </Button>
+            <Button x:Name="shopping" Click="shopping_Click" Grid.Column="4" Background="White" BorderThickness="0" HorizontalAlignment="Center">
+                <Image Source="Assets/shopping.png" Width="40" Height="40" />
+            </Button>
+            <Button x:Name="entertainment" Click="entertainment_Click" Grid.Column="5" Background="White" BorderThickness="0" HorizontalAlignment="Center">
+                <Image Source="Assets/entertainment.png" Width="40" Height="40" />
+            </Button>
+            <Button x:Name="travel" Click="travel_Click" Grid.Column="6" Background="White" BorderThickness="0" HorizontalAlignment="Center">
+                <Image Source="Assets/travel.png" Width="40" Height="40" />
+            </Button>
+            <Button x:Name="study" Click="study_Click" Grid.Column="7" Background="White" BorderThickness="0" HorizontalAlignment="Center">
+                <Image Source="Assets/study.png" Width="40" Height="40" />
+            </Button>
+        </Grid>
+        <Grid Grid.Row="2" Margin="0,6,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="日常" Grid.Column="0" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="收入" Grid.Column="1" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="交通" Grid.Column="2" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="餐饮" Grid.Column="3" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="购物" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="娱乐" Grid.Column="5" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="旅游" Grid.Column="6" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="学习" Grid.Column="7" HorizontalAlignment="Center"></TextBlock>
+        </Grid>
+        <DatePicker Grid.Row="3" x:Name="datepicker" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 40, 0, 0"/>
+        <Grid Grid.Row="4" Margin="20,40,20,0">
+            <TextBox x:Name="info" PlaceholderText="添加说明" TextWrapping="Wrap"></TextBox>
+        </Grid>
+        <Grid Grid.Row="5" Margin="20,50,20,0">
+            <Button x:Name="complete" Content="完成" Click="complete_Click" Style="{StaticResource ButtonStyle1}" Background="OrangeRed" Foreground="White" Width="200" Height="40" HorizontalAlignment="Center" BorderThickness="0" IsEnabled="False"></Button>
+        </Grid>
+    </Grid>
+</Page>

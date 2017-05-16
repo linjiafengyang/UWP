@@ -1,0 +1,177 @@
+﻿<Page x:ConnectionId='1'
+    x:Class="Cashbook.Information"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Cashbook"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    
+    <Page.Resources>
+        <local:NullableBooleanToBooleanConverter x:Key="converter"/>
+        <local:FrameToIndexConverter x:Key="FrameToIndex"/>
+        <!--设置SplitView样式-->
+        <Style x:Key="SplitViewTogglePaneButtonStyle" TargetType="ToggleButton">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontFamily" Value="{ThemeResource SymbolThemeFontFamily}" />
+            <Setter Property="MinHeight" Value="48" />
+            <Setter Property="MinWidth" Value="48" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+            <Setter Property="Content" Value="&#xE700;" />
+            <Setter Property="AutomationProperties.Name" Value="Menu" />
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ButtonBase">
+                        <Grid Background="{TemplateBinding Background}" x:Name="LayoutRoot">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Target="LayoutRoot.(Grid.Background)" Value="{ThemeResource SystemControlHighlightListLowBrush}" />
+                                            <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <VisualState.Setters>
+                                            <Setter Target="LayoutRoot.(Grid.Background)" Value="{ThemeResource SystemControlHighlightListMediumBrush}" />
+                                            <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Target="ContentPresenter.(TextBlock.Foreground)" Value="{ThemeResource SystemControlDisabledBaseLowBrush}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Checked"/>
+                                    <VisualState x:Name="CheckedPointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Target="LayoutRoot.(Grid.Background)" Value="{ThemeResource SystemControlHighlightListLowBrush}" />
+                                            <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <VisualState x:Name="CheckedPressed">
+                                        <VisualState.Setters>
+                                            <Setter Target="LayoutRoot.(Grid.Background)" Value="{ThemeResource SystemControlHighlightListMediumBrush}" />
+                                            <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <VisualState x:Name="CheckedDisabled">
+                                        <VisualState.Setters>
+                                            <Setter Target="ContentPresenter.(TextBlock.Foreground)" Value="{ThemeResource SystemControlDisabledBaseLowBrush}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter"
+                                        Content="{TemplateBinding Content}"
+                                        Margin="{TemplateBinding Padding}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        AutomationProperties.AccessibilityView="Raw" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!--设置自适应，SplitView是否展开Pane-->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.Setters>
+                        <Setter Target="splitview.(UIElement.IsPaneOpen)" Value ="False"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState>
+                    <VisualState.Setters>
+                        <Setter Target="splitview.(UIElement.IsPaneOpen)" Value ="True"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        <SplitView x:ConnectionId='2' x:Name="splitview" x:FieldModifier="Public"
+                                                                                                  
+           DisplayMode="CompactInline"
+           CompactPaneLength="48"
+           OpenPaneLength="200">
+            <SplitView.Pane>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!--顶端按钮，点击可展开Pane-->
+                    <ToggleButton x:ConnectionId='3' x:Name="list" Width="48" Height="48" Padding="0, 0, 0, 0" BorderThickness="0" Style="{StaticResource SplitViewTogglePaneButtonStyle}"/>
+                    <ListView x:ConnectionId='4' Grid.Row="1" x:Name="listview" SelectedIndex="0">
+                        <ListViewItem>
+                            <StackPanel Orientation="Horizontal" >
+                                <SymbolIcon Symbol="Contact" />
+                                <TextBlock Text="个人主页"
+                                           Margin="24,0,0,0"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <StackPanel Orientation="Horizontal" >
+                                <SymbolIcon Symbol="Edit" />
+                                <TextBlock Text="记账本"
+                                           Margin="24,0,0,0"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <StackPanel Orientation="Horizontal" >
+                                <SymbolIcon Symbol="World" />
+                                <TextBlock Text="天气查询"
+                                           Margin="24,0,0,0"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <StackPanel Orientation="Horizontal" >
+                                <SymbolIcon Symbol="Globe" />
+                                <TextBlock Text="手机号归属地查询"
+                                           Margin="24,0,0,0"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <StackPanel Orientation="Horizontal" >
+                                <SymbolIcon Symbol="Video" />
+                                <TextBlock Text="播放器"
+                                           Margin="24,0,0,0"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
+                </Grid>
+            </SplitView.Pane>
+            <!--设置该页为公共Public，并且绑定ListView，返回跳转时可对应各个listview-->
+            <Frame x:ConnectionId='5' x:Name="frame" x:FieldModifier="Public" SourcePageType="{Binding ElementName=listview, 
+                Path=SelectedIndex, Converter={StaticResource FrameToIndex}, Mode=TwoWay}"></Frame>
+        </SplitView>
+    </Grid>
+</Page>
+

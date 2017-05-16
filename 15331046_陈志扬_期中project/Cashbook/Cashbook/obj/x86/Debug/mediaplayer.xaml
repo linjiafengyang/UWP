@@ -1,0 +1,76 @@
+﻿<Page
+    x:Class="Cashbook.mediaplayer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Cashbook"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <local:MediaConverter x:Key="mcv1"/>
+        <local:DisplayConverter x:Key="mcv2"/>
+        <local:AudioConverter x:Key="mcv3"/>
+    </Page.Resources>
+
+    <Grid x:ConnectionId='1' x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Ellipse x:ConnectionId='2' x:Name="e1" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin=".5,.5" Width="350" Height="350" Margin="0, -30, 0 ,0">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Assets/Doraemon.png"/>
+            </Ellipse.Fill>
+            <Ellipse.RenderTransform>
+                <CompositeTransform />
+            </Ellipse.RenderTransform>
+            <Ellipse.Resources>
+                <Storyboard x:ConnectionId='18' x:Name="esb1" >
+                    <DoubleAnimation RepeatBehavior="Forever" Duration="0:0:20" SpeedRatio="2" From="0" To="360" Storyboard.TargetName="e1" 
+                      Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" />
+                </Storyboard>
+            </Ellipse.Resources>
+        </Ellipse>
+        <Image x:ConnectionId='3' x:Name="stick" Source="Assets/stick.png" RenderTransformOrigin="0, 0"  Width="120" Height="160" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 25, 0 ,0">
+            <Image.RenderTransform>
+                <CompositeTransform/>
+            </Image.RenderTransform>
+            <Image.Resources>
+                <Storyboard x:ConnectionId='14' x:Name="stick_play">
+                    <DoubleAnimation x:ConnectionId='17' x:Name="stick_animation" Duration="0:0:1" From="-45" To="-10" Storyboard.TargetName="stick"
+                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" />
+                </Storyboard>
+                <Storyboard x:ConnectionId='15' x:Name="stick_play_pause">
+                    <DoubleAnimation x:ConnectionId='16' x:Name="stick_animation_pause" Duration="0:0:1" From="-10" To="-45" Storyboard.TargetName="stick"
+                                     Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" />
+                </Storyboard>
+            </Image.Resources>
+        </Image>
+        <MediaElement x:ConnectionId='4' Source="Assets/Doraemon.mp3" x:Name="myMediaElement"                                 Stretch="Fill"
+                                                                                                      Volume="{Binding Path=Value, ElementName=VolumeSlider, Converter={StaticResource mcv3}, Mode=TwoWay}"/>
+
+        <Grid x:ConnectionId='5' Grid.Row="1"                                                                                            >
+            <TextBlock HorizontalAlignment="Right" Foreground="Red" VerticalAlignment="Bottom" Width="60" Text="{Binding Position, ElementName=myMediaElement, Converter={StaticResource mcv2}, Mode=OneWay}"  Opacity="{Binding Opacity, ElementName=TimelineSlider, Mode=OneWay}" Margin="0, 0, 0, 70"/>
+            <Slider x:ConnectionId='6' x:Name="TimelineSlider" VerticalAlignment="Bottom" Background="GreenYellow" Value="{Binding Position, ElementName=myMediaElement, Converter={StaticResource mcv1}, Mode=TwoWay}" Margin="0, 0, 0, 40"/>
+            <CommandBar x:ConnectionId='7' x:Name="state" VerticalAlignment="Bottom" Opacity="{Binding Opacity, ElementName=TimelineSlider, Mode=OneWay}">
+                <AppBarButton x:ConnectionId='8' x:Name="PlayButton" Label="Play"                         >
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Play"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:ConnectionId='9' x:Name="StopButton" Icon="Stop" Label="Stop"                         />
+                <AppBarButton x:ConnectionId='10' x:Name="Volume" Icon="Volume" Label="Volume"                     >
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout>
+                            <Slider x:ConnectionId='13' x:Name="VolumeSlider" VerticalAlignment="Center" HorizontalAlignment="Center"  Minimum="0" Maximum="100" Value="50" Height="120" Orientation="Vertical"/>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </AppBarButton>
+                <AppBarButton x:ConnectionId='11' x:Name="Pick" Icon="OpenFile" Label="Pick"                   />
+                <AppBarButton x:ConnectionId='12' x:Name="FullScreen" Icon="FullScreen" Label="FullScreen"                         />
+            </CommandBar>
+        </Grid>
+    </Grid>
+</Page>
+
